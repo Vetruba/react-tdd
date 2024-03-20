@@ -16,7 +16,7 @@
     "@babel/plugin-transform-runtime": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
-    "jest": "^24.1.0"
+    "jest-environment-jsdom": "^29.7.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.3.4",
@@ -27,5 +27,8 @@
     "singleQuote": true,
     "printWidth": 67,
     "jsxBracketSameLine": true
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }
