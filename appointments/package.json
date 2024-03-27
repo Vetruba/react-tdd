@@ -17,11 +17,11 @@
     "@babel/plugin-transform-runtime": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "^9.1.3",
     "faker": "^4.1.0",
-    "jest": "^24.1.0",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
+    "jest-environment-jsdom": "^29.7.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "@babel/runtime": "^7.3.4",
@@ -32,5 +32,8 @@
     "singleQuote": true,
     "printWidth": 67,
     "jsxBracketSameLine": true
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }
