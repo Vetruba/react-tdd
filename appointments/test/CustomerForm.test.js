@@ -49,43 +49,51 @@ describe('CustomerForm', () => {
       expect(field(fieldName).id).toEqual(fieldName);
     });
 
-  describe('first name field', () => {
-
-    itRendersAsATextBox('firstName');
-
-    itIncludesTheExistingValue('firstName');
-
-    itRendersALabel('firstName', 'First name');
-
-    itAssignsAnIdThatMatchesTheLabelId('firstName');
-
+  const itSavesExistingValueWhenSubmitted = (fieldName, value) =>
     it('saves existing value when submitted', async () => {
       expect.hasAssertions();
       render(
         <CustomerForm
-          firstName="Ashley"
-          onSubmit={({ firstName }) =>
-            expect(firstName).toEqual('Ashley')
+          {...{ [fieldName]: value }}
+          onSubmit={props =>
+            expect(props[fieldName]).toEqual(value)
           }
         />
       );
       await ReactTestUtils.Simulate.submit(form('customer'));
     });
 
-    it('saves value when submitted', async () => {
+  const itSubmitsNewValue = (fieldName, value) =>
+    it('saves new value when submitted', async () => {
       expect.hasAssertions();
       render(
         <CustomerForm
-          firstName="Ashley"
-          onSubmit={({ firstName }) =>
-            expect(firstName).toEqual('Jamie')
+          {...{ [fieldName]: 'existingValue' }}
+          onSubmit={props =>
+            expect(props[fieldName]).toEqual(value)
           }
-        />
-      );
-      await ReactTestUtils.Simulate.change(field('firstName'), {
-        target: { value: 'Jamie' }
+        />);
+      await ReactTestUtils.Simulate.change(field(fieldName), {
+        target: { value }
       });
       await ReactTestUtils.Simulate.submit(form('customer'));
     });
+
+  describe('first name field', () => {
+    itRendersAsATextBox('firstName');
+    itIncludesTheExistingValue('firstName');
+    itRendersALabel('firstName', 'First name');
+    itAssignsAnIdThatMatchesTheLabelId('firstName');
+    itSavesExistingValueWhenSubmitted('firstName', 'firstName');
+    itSubmitsNewValue('firstName', 'firstName');
+  });
+
+  describe('last name field', () => {
+    itRendersAsATextBox('lastName');
+    itIncludesTheExistingValue('lastName');
+    itRendersALabel('lastName', 'Last name');
+    itAssignsAnIdThatMatchesTheLabelId('lastName');
+    itSavesExistingValueWhenSubmitted('lastName', 'lastName');
+    itSubmitsNewValue('lastName', 'lastName');
   });
 });
