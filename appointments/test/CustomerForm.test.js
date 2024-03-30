@@ -49,6 +49,36 @@ describe('CustomerForm', () => {
       expect(field(fieldName).id).toEqual(fieldName);
     });
 
+  const itSavesExistingValueWhenSubmitted = (fieldName, value) =>
+    it('saves existing value when submitted', async () => {
+      expect.hasAssertions();
+      render(
+        <CustomerForm
+          {...{ [fieldName]: value }}
+          onSubmit={props =>
+            expect(props[fieldName]).toEqual(value)
+          }
+        />
+      );
+      await ReactTestUtils.Simulate.submit(form('customer'));
+    });
+
+  const itSubmitsNewValue = (fieldName, value) =>
+    it('saves new value when submitted', async () => {
+      expect.hasAssertions();
+      render(
+        <CustomerForm
+          {...{ [fieldName]: 'existingValue' }}
+          onSubmit={props =>
+            expect(props[fieldName]).toEqual(value)
+          }
+        />);
+      await ReactTestUtils.Simulate.change(field(fieldName), {
+        target: { value }
+      });
+      await ReactTestUtils.Simulate.submit(form('customer'));
+    });
+
   describe('first name field', () => {
 
     itRendersAsATextBox('firstName');
@@ -59,33 +89,10 @@ describe('CustomerForm', () => {
 
     itAssignsAnIdThatMatchesTheLabelId('firstName');
 
-    it('saves existing value when submitted', async () => {
-      expect.hasAssertions();
-      render(
-        <CustomerForm
-          firstName="Ashley"
-          onSubmit={({ firstName }) =>
-            expect(firstName).toEqual('Ashley')
-          }
-        />
-      );
-      await ReactTestUtils.Simulate.submit(form('customer'));
-    });
+    itSavesExistingValueWhenSubmitted('firstName', 'firstName');
 
-    it('saves value when submitted', async () => {
-      expect.hasAssertions();
-      render(
-        <CustomerForm
-          firstName="Ashley"
-          onSubmit={({ firstName }) =>
-            expect(firstName).toEqual('Jamie')
-          }
-        />
-      );
-      await ReactTestUtils.Simulate.change(field('firstName'), {
-        target: { value: 'Jamie' }
-      });
-      await ReactTestUtils.Simulate.submit(form('customer'));
-    });
+    itSubmitsNewValue('firstName', 'firstName');
   });
+
+  
 });
