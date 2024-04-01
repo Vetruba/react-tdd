@@ -80,19 +80,20 @@ describe('CustomerForm', () => {
     });
 
   describe('first name field', () => {
-
     itRendersAsATextBox('firstName');
-
     itIncludesTheExistingValue('firstName');
-
     itRendersALabel('firstName', 'First name');
-
     itAssignsAnIdThatMatchesTheLabelId('firstName');
-
     itSavesExistingValueWhenSubmitted('firstName', 'firstName');
-
     itSubmitsNewValue('firstName', 'firstName');
   });
 
-  
+  describe('last name field', () => {
+    itRendersAsATextBox('lastName');
+    itIncludesTheExistingValue('lastName');
+    itRendersALabel('lastName', 'Last name');
+    itAssignsAnIdThatMatchesTheLabelId('lastName');
+    itSavesExistingValueWhenSubmitted('lastName', 'lastName');
+    itSubmitsNewValue('lastName', 'lastName');
+  });
 });
