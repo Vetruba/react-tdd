@@ -96,4 +96,13 @@ describe('CustomerForm', () => {
     itSavesExistingValueWhenSubmitted('lastName', 'lastName');
     itSubmitsNewValue('lastName', 'lastName');
   });
+
+  describe('phone number field', () => {
+    itRendersAsATextBox('phoneNumber');
+    itIncludesTheExistingValue('phoneNumber');
+    itRendersALabel('phoneNumber', 'Phone number');
+    itAssignsAnIdThatMatchesTheLabelId('phoneNumber');
+    itSavesExistingValueWhenSubmitted('phoneNumber', 'phoneNumber');
+    itSubmitsNewValue('phoneNumber', 'phoneNumber');
+  })
 });
